@@ -4,6 +4,8 @@ import jwtKey from "../jwtKey.js"
 const Authenticated = async (req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log(req.cookies)
+        console.log("tokennnnnnn",req.cookies.token)
         if(!token){
             res.status(400).json({
                 message:"User not found",
@@ -18,8 +20,9 @@ const Authenticated = async (req, res, next) => {
                 success:false
             })
         }
-        req.id = decode.userId;
-        next(); //if sari chije properly work kre to go next route
+        // console.log(decode.id)
+        req.id = decode.id;
+        next(); 
     } catch (error) {
         console.log(error);
     }

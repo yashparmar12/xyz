@@ -1,7 +1,6 @@
 import express from 'express';
 import db from './db.js';
 import cookieParser from 'cookie-parser';
-
 import userRoute from './routes/userRoute.js';
 import cors from "cors"
 // import adminRoute from './routes/adminRoute.js';
@@ -9,21 +8,15 @@ import cors from "cors"
 const app = express();
 const PORT = 8000;
 
-app.use(cookieParser());
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
-//It only handles key- value pairs
- 
-
-// app.use(cors());
-
-const corsOptions = {
+app.use(cookieParser());
+  
+  app.use(cors({
     origin: 'http://localhost:3000',  // Allow frontend to access backend
     credentials: true,  // Allow cookies to be sent
-  };
-  
-  app.use(cors(corsOptions));
+  }));
 
 app.get('/',(req,res)=>{
     res.send("<h1>Hiii Good Morning</h1>");

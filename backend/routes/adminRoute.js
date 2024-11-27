@@ -1,10 +1,17 @@
 import express from "express"
-import { login, logout, register } from "../controller/adminController.js";
+import { adminData, allUserData, registerAdmin, updateAdminProfile} from "../controller/adminController.js";
+import Authenticate from "../middleware/Authenticate.js"
+import multer from 'multer'
+const upload = multer({ dest: 'upload/' })
 
 const router = express.Router();
 
-router.route("/register").post(register);
-router.route("/login").post(login);
-router.route("/logout").get(logout);
+router.route("/register").post(registerAdmin);
+router.route("/allUsers").get(allUserData);
+router.route("/adminData").get(Authenticate, adminData);
+router.route("/updateAdminProfile").post(Authenticate, upload.single('photo'), updateAdminProfile);
+
+
+
 
 export default router;
